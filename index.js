@@ -5,16 +5,19 @@ const fetch = require("node-fetch");
 const csv = require("fast-csv");
 
 
-const ENABLE_SNAP_TO_WATERBODIES = false;
-const ENABLE_POLY = false;
-const ENABLE_UNCERTAINITY = true;
-const FORMAT = "json"; // geojson
-
 const OUTPUT_DIR = "./ProcessedFiles";
 
 const SERVICE_URI =
   "http://geo-locate.org/webservices/geolocatesvcv2/glcwrap.aspx";
 
+const ENABLE_SNAP_TO_WATERBODIES = false;
+const ENABLE_POLY = false;
+const ENABLE_UNCERTAINITY = true;
+const FORMAT = "json"; // geojson
+
+/**
+ * Default values for the query
+ */
 const queryDefaults = {
   hwyX: false,
   enableH2O: ENABLE_SNAP_TO_WATERBODIES,
@@ -28,6 +31,10 @@ const headerOptions = {
   Accept: "application/json",
 };
 
+/**
+ * Returns the Query URL for each record object
+ * @param {*} param0 record object
+ */
 const getQueryUri = ({ locality, country = "", state = "", county = "" }) => {
   const queryParams = new url.URLSearchParams({
     ...queryDefaults,
@@ -106,8 +113,8 @@ const getLocationData = async (record) => {
             debug: x.properties.debug,
           };
         });
-  // Choose the max score as the best match
-  var bestLocationMatch = locationResults.reduce(
+  // Choose the result with the max score as the best match
+  const bestLocationMatch = locationResults.reduce(
     (best, current) => {
       return best.score > current.score ? best : current;
     },
