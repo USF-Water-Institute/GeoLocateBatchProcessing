@@ -1,0 +1,17 @@
+{
+  "name": "geolocate_batchprocess",
+  "version": "1.0.0",
+  "description": "Batch processing a file using GEOLocate web services.",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adhokshaja Achar Budihal Prasad; USF Water Institute",
+  "license": "MIT",
+  "dependencies": {
+    "@fast-csv/parse": "^4.3.6",
+    "fast-csv": "^4.3.6",
+    "node-fetch": "^2.6.1"
+  }
+}
