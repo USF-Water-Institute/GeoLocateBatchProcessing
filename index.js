@@ -72,7 +72,7 @@ const ParseFile = async (filePath) => {
 const WriteToCSV = async(fileName = "Processed", records) =>{
     const filePath = path.resolve(__dirname,OUTPUT_DIR,`${fileName}.csv`);
     csv
-      .writeToPath(filePath, records, { headers: true })
+      .writeToPath(filePath, records, { headers: true, writeBOM:true })
       .on("error", (err) => console.error(err))
       .on("finish", () => console.log(`Done writing file ${fileName}`));
     return;
