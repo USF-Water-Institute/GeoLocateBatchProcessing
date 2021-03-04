@@ -14,12 +14,16 @@ const ENABLE_SNAP_TO_WATERBODIES = false;
 const ENABLE_POLY = false;
 const ENABLE_UNCERTAINITY = true;
 const FORMAT = "json"; // geojson
+const ENABLE_HIGHWAY = true;
+
+
+
 
 /**
  * Default values for the query
  */
 const queryDefaults = {
-  hwyX: false,
+  hwyX: ENABLE_HIGHWAY,
   enableH2O: ENABLE_SNAP_TO_WATERBODIES,
   doPoly: ENABLE_POLY,
   format: FORMAT,
@@ -30,6 +34,7 @@ const headerOptions = {
   "Accept-Encoding": "gzip, deflate",
   Accept: "application/json",
 };
+
 
 /**
  * Returns the Query URL for each record object
@@ -142,14 +147,16 @@ const getLocationData = async (record) => {
   if (filePaths.length <= 0) {
     filePaths.push("./sample.csv"); // Sample CSV is default
   }
-console.time("Full Execultion");
+console.time("All files");
   for (let filePath of filePaths) {
+    console.time(`${path.parse(filePath).name}`);
     console.log(`Parsing file ${filePath}`);
     const records = await ParseFile(filePath);
     console.log(`Found ${records.length} records. Fetching Locations`);
 
     for (let i = 0; i < records.length; i++) {
       const record = records[i];
+      try{
       const {
         latitude,
         longitude,
@@ -169,11 +176,14 @@ console.time("Full Execultion");
         uncertainty,
         debug,
       };
+    }catch (e){
+      console.error(`Error fetching geolocation for ${record}`,e);
+    }
     }
 
     // Write to csv
     await WriteToCSV(path.parse(filePath).name,records);
-
+    console.timeEnd(`${path.parse(filePath).name}`);
   }
-  console.timeEnd("Full Execultion");
+  console.timeEnd("All files");
 })();
