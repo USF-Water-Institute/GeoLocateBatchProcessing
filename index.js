@@ -109,8 +109,8 @@ const getLocationData = async (record) => {
         .filter((x) => x.geometry.type === "Point") // Get only point locations
         .map((x) => { // convert to a manageable object with only required params
           return {
-            latitude: x.geometry.coordinates[0],
-            longitude: x.geometry.coordinates[1],
+            latitude: x.geometry.coordinates[1],
+            longitude: x.geometry.coordinates[0],
             score: x.properties.score,
             multiple_results: queryResults.numResults > 1,
             precision: `${x.properties.precision} (${x.properties.score})`,
