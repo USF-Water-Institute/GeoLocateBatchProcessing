@@ -1,6 +1,6 @@
 # Batch processing Files using GeoLocate Web Services
 
-Processing Geo location for a CSV file using the [GeoLocate Webservice JSON Wrapper](http://www.geo-locate.org/files/glcJSON.pdf).
+Processing Geo location for a CSV file using the [GeoLocate Webservice JSON Wrapper](http://www.geo-locate.org/files/glcJSON.pdf) in NodeJS.
 
 Sample CSV file used for processing can be found [here](./sample.csv)
 
